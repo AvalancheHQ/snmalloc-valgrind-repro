@@ -1,0 +1,10 @@
+# valgrind --trace-syscalls=yes, snmalloc-rs 0.3.8 DEFAULT features.
+# The reservation snmalloc makes at init is 256 GiB; valgrind rejects it (EINVAL 0x16),
+# madvise then fails (ENOMEM 0xc), snmalloc prints its error and aborts.
+
+sys_mmap    ( 0x0, 274877906944, 3, 16418, 4294967295, 0 ) --> [pre-fail] Failure(0x16)   # 256 GiB, EINVAL
+sys_madvise ( 0x0, 274877906944, 16 )                      --> Failure(0xc)                # ENOMEM
+sys_writev  ( 2, ... )   # "Failed to initialise snmalloc."
+sys_tgkill  ( 4066, 4066, 6 )   # SIGABRT
+
+# mmap flags 16418 = 0x4022 = MAP_PRIVATE | MAP_ANONYMOUS | MAP_NORESERVE ; fd = -1

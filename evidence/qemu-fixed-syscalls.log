@@ -1,0 +1,6 @@
+# Same binary + same valgrind, but snmalloc-rs built with features = ["qemu"]
+# (SNMALLOC_QEMU_WORKAROUND). Reservation drops to 32 GiB and valgrind accepts it.
+# "Failed to initialise snmalloc" no longer appears; no SIGABRT.
+
+sys_mmap ( 0x0, 34359738368, 3, 16418, 4294967295, 0 )   # 32 GiB
+==4443== Warning: set address range perms: large range [0x59cca000, 0x859cca000) (defined)   # 32 GiB, accepted

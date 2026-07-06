@@ -1,0 +1,16 @@
+# snmalloc-rs 0.3.8 DEFAULT features, under valgrind-3.26.0.codspeed3 (memcheck)
+# Command: global_snmalloc --bench ...   -> exit 134 (SIGABRT)
+
+Failed to initialise snmalloc.
+==4061== Process terminating with default action of signal 6 (SIGABRT)
+==4061==    at ... abort (abort.c:79)
+==4061==    by ... snmalloc::PALPOSIX<snmalloc::PALLinux, &writev, &fsync>::error(char const*)
+==4061==    by ... snmalloc::StandardConfigClientMeta<...>::ensure_init_slow()
+==4061==    by ... snmalloc::LocalAllocator<...>::init()
+==4061==    by ... sn_rust_alloc
+==4061==    by ... alloc (alloc.rs:95)
+==4061==    ... (Rust runtime startup: std::rt::lang_start_internal -> main)
+==4061== HEAP SUMMARY:
+==4061==     in use at exit: 0 bytes in 0 blocks
+==4061== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+Aborted
