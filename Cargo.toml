@@ -1,0 +1,23 @@
+[package]
+name = "snmalloc-valgrind-repro"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+# Minimal reproduction of the failure the CodSpeed Wizard hit on
+# botirkhaltaev/runic: snmalloc-rs, used as the global allocator, aborts with
+# "Failed to initialise snmalloc" (exit 134) when its Criterion benchmarks are
+# run under CodSpeed simulation mode (valgrind).
+#
+# Faithful to runic/crates/runic-bench: snmalloc-rs 0.3 with DEFAULT features,
+# criterion swapped for codspeed-criterion-compat (aliased back to `criterion`).
+
+[dependencies]
+snmalloc-rs = "0.3"
+
+[dev-dependencies]
+criterion = { package = "codspeed-criterion-compat", version = "*" }
+
+[[bench]]
+name = "global_snmalloc"
+harness = false
